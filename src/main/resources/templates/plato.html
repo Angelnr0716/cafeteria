@@ -6,9 +6,33 @@
   <link rel="stylesheet" href="/css/cafeteria.css">
 </head>
 <body>
+
   <h1 th:text="${plato.nombre}">Nombre</h1>
-  <p>Tipo: <span th:text="${plato.tipo}">tipo</span></p>
-  <p>Precio: $ <span th:text="${#numbers.formatInteger(plato.precio, 1, 'POINT')}">0</span></p>
-  <a th:href="@{/menu}">Volver al menú</a>
+
+  <!-- Detalle del plato -->
+  <div class="formulario">
+    <p><strong>Tipo:</strong> <span th:text="${plato.tipo}">tipo</span></p>
+    <p><strong>Precio:</strong> $ <span th:text="${#numbers.formatInteger(plato.precio, 1, 'POINT')}">0</span></p>
+  </div>
+
+  <div style="margin-top:16px;">
+    <a th:href="@{/menu}" class="boton secundario">← Volver al menú</a>
+  </div>
+
+  <!-- Botón Acerca de al final -->
+  <p>
+    <button type="button" onclick="document.getElementById('modal-acerca-plato').showModal()">Acerca de</button>
+  </p>
+
+  <!-- Modal Acerca de -->
+  <dialog id="modal-acerca-plato">
+    <h2>Acerca de</h2>
+    <p>Nombre: Juan Angel Narvaez Reyes</p>
+    <p>Programa: ADSO</p>
+    <p>Ficha: 3230489</p>
+    <p>Fecha: 07/11/2026</p>
+    <button type="button" onclick="document.getElementById('modal-acerca-plato').close()">Cerrar</button>
+  </dialog>
+
 </body>
 </html>

@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="/css/cafeteria.css">
 </head>
 <body>
+
   <h1 th:text="${titulo}">Título</h1>
 
   <!-- Enlaces de filtro: @{/menu(tipo='bebida')} construye /menu?tipo=bebida -->
@@ -23,5 +24,71 @@
     </li>
   </ul>
   <p th:if="${#lists.isEmpty(platos)}">No hay platos de ese tipo.</p>
+
+  <!-- Botones al final -->
+  <p>
+    <button type="button" onclick="document.getElementById('modal-acerca').showModal()">Acerca de</button>
+    <button type="button" onclick="document.getElementById('modal-contacto').showModal()">Contacto</button>
+  </p>
+
+  <!-- Modal Acerca de -->
+  <dialog id="modal-acerca">
+    <h2>Acerca de</h2>
+    <p>Nombre: Juan Angel Narvaez Reyes</p>
+    <p>Programa: ADSO</p>
+    <p>Ficha: 3230489</p>
+    <p>Fecha: 07/11/2026</p>
+    <button type="button" onclick="document.getElementById('modal-acerca').close()">Cerrar</button>
+  </dialog>
+
+  <!-- Modal Formulario de Contacto -->
+  <dialog id="modal-contacto">
+    <h2>Contacto</h2>
+    <form id="form-contacto" onsubmit="enviarContacto(event)">
+      <p>
+        <label for="contacto-nombre">Nombre:</label><br>
+        <input type="text" id="contacto-nombre" required>
+      </p>
+      <p>
+        <label for="contacto-correo">Correo:</label><br>
+        <input type="email" id="contacto-correo" required>
+      </p>
+      <p>
+        <label for="contacto-asunto">Asunto:</label><br>
+        <input type="text" id="contacto-asunto" required>
+      </p>
+      <p>
+        <button type="submit">Enviar</button>
+        <button type="button" onclick="document.getElementById('modal-contacto').close()">Cancelar</button>
+      </p>
+    </form>
+  </dialog>
+
+  <!-- Modal Confirmación con Información Ingresada -->
+  <dialog id="modal-contacto-info">
+    <h2>Información Enviada</h2>
+    <p>Nombre: <span id="res-nombre"></span></p>
+    <p>Correo: <span id="res-correo"></span></p>
+    <p>Asunto: <span id="res-asunto"></span></p>
+    <button type="button" onclick="document.getElementById('modal-contacto-info').close()">Aceptar</button>
+  </dialog>
+
+  <script>
+    function enviarContacto(event) {
+      event.preventDefault();
+      const nombre = document.getElementById('contacto-nombre').value;
+      const correo = document.getElementById('contacto-correo').value;
+      const asunto = document.getElementById('contacto-asunto').value;
+
+      document.getElementById('res-nombre').textContent = nombre;
+      document.getElementById('res-correo').textContent = correo;
+      document.getElementById('res-asunto').textContent = asunto;
+
+      document.getElementById('modal-contacto').close();
+      document.getElementById('form-contacto').reset();
+      document.getElementById('modal-contacto-info').showModal();
+    }
+  </script>
+
 </body>
 </html>
